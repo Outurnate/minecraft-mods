@@ -1,0 +1,13 @@
+{
+  "type": "createhalitosis:halitosis",
+  "ingredients": [
+    {
+      "item": "minecraft:stone_brick_slab"
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:end_stone_brick_slab"
+    }
+  ]
+}

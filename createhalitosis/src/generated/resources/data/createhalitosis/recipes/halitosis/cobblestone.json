@@ -1,0 +1,13 @@
+{
+  "type": "createhalitosis:halitosis",
+  "ingredients": [
+    {
+      "item": "minecraft:cobblestone"
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:end_stone"
+    }
+  ]
+}

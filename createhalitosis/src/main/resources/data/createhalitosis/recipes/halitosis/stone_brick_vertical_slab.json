@@ -1,0 +1,19 @@
+{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "quark"
+    }
+  ],
+  "type": "createhalitosis:halitosis",
+  "ingredients": [
+    {
+      "item": "quark:stone_brick_vertical_slab"
+    }
+  ],
+  "results": [
+    {
+      "item": "quark:end_stone_brick_vertical_slab"
+    }
+  ]
+}

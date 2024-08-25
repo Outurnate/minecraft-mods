@@ -1,0 +1,3 @@
+// 1.20.1	2024-08-24T13:10:26.645936283	Registrate Provider for createhalitosis [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
+56b4a544d73640d96a671356852ca835567213e3 data/create/tags/items/upright_on_belt.json
+32d67056c0094b9de935582a815713a7c1a6688f data/createhalitosis/tags/blocks/fan_processing_catalysts/halitosis.json

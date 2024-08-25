@@ -1,0 +1,19 @@
+{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "quark"
+    }
+  ],
+  "type": "createhalitosis:halitosis",
+  "ingredients": [
+    {
+      "tag": "quark:corundum"
+    }
+  ],
+  "results": [
+    {
+      "item": "quark:myalite_crystal"
+    }
+  ]
+}

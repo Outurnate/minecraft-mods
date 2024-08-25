@@ -1,0 +1,13 @@
+{
+  "type": "createhalitosis:halitosis",
+  "ingredients": [
+    {
+      "item": "minecraft:blaze_rod"
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:end_rod"
+    }
+  ]
+}

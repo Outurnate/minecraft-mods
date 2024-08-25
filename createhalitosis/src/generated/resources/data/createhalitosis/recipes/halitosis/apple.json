@@ -1,0 +1,13 @@
+{
+  "type": "createhalitosis:halitosis",
+  "ingredients": [
+    {
+      "item": "minecraft:apple"
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:chorus_fruit"
+    }
+  ]
+}
