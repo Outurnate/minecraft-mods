@@ -1,6 +1,7 @@
 package com.outurnate.railbridges;
 
 import java.util.function.Predicate;
+import java.util.function.Function;
 
 import net.minecraft.world.level.ChunkPos;
 
@@ -19,6 +20,15 @@ public final class TrackBridgeMap {
     NS,
     EW
   }
+
+  public record Vec2i(int x, int z)
+  {
+    public Vec2i InChunks() {
+      return new Vec2i(x / 16, z / 16);
+    }
+  }
+
+  public record PieceWithOffset(Piece piece, int offsetX, int offsetZ) { }
 
   private final ImprovedNoise noise = new ImprovedNoise();
 
@@ -58,7 +68,7 @@ public final class TrackBridgeMap {
     return factor > -cutoff && factor < cutoff;
   }
 
-  public Piece getPiece(long seed, ChunkPos pos, Predicate<ChunkPos> biomeTester) {
+  private Piece getPieceAt(long seed, ChunkPos pos, Predicate<ChunkPos> biomeTester) {
     boolean isOnNS = isOnRawGrid(seed, pos, Direction.NS, biomeTester);
     boolean isOnEW = isOnRawGrid(seed, pos, Direction.EW, biomeTester);
     if (isOnEW && isOnNS)
@@ -106,6 +116,49 @@ public final class TrackBridgeMap {
     }
     if (isEonEW && isEonNS) {
       return Piece.W;
+    }
+    return null;
+  }
+
+  public Vec2i[] getOverlayTestCheckPos(int width, int height) {
+    Vec2i[] positions = new Vec2i[width * height];
+    for (int x = 0; x < width; ++x)
+      for (int z = 0; z < height; ++z)
+        positions[(z * width) + x] = new Vec2i(x - (width / 2), z - (height / 2));
+    return positions;
+  }
+
+  public PieceWithOffset getPiece(long seed, ChunkPos pos, Predicate<ChunkPos> biomeTester, Function<Piece, Vec2i> sizeFinder) {
+    Vec2i pieceSize;
+
+    pieceSize = sizeFinder.apply(Piece.X).InChunks();
+    for (Vec2i offset : getOverlayTestCheckPos(pieceSize.x, pieceSize.z))
+      if (getPieceAt(seed, new ChunkPos(pos.x + offset.x, pos.z + offset.z), biomeTester) == Piece.X)
+        return new PieceWithOffset(Piece.X, (16 * offset.x) - (16 * (pieceSize.x / 2)), (16 * offset.z) - (16 * (pieceSize.z / 2)));
+
+    pieceSize = sizeFinder.apply(Piece.N).InChunks();
+    for (Vec2i offset : getOverlayTestCheckPos(pieceSize.x, pieceSize.z))
+      if (getPieceAt(seed, new ChunkPos(pos.x + offset.x, pos.z + offset.z), biomeTester) == Piece.N)
+        return new PieceWithOffset(Piece.N, (16 * offset.x) - (16 * (pieceSize.x / 2)), 16 * offset.z);
+
+    pieceSize = sizeFinder.apply(Piece.S).InChunks();
+    for (Vec2i offset : getOverlayTestCheckPos(pieceSize.x, pieceSize.z))
+      if (getPieceAt(seed, new ChunkPos(pos.x + offset.x, pos.z + offset.z), biomeTester) == Piece.S)
+        return new PieceWithOffset(Piece.S, (16 * offset.x) - (16 * (pieceSize.x / 2)), 16 * offset.z);
+
+    pieceSize = sizeFinder.apply(Piece.E).InChunks();
+    for (Vec2i offset : getOverlayTestCheckPos(pieceSize.x, pieceSize.z))
+      if (getPieceAt(seed, new ChunkPos(pos.x + offset.x, pos.z + offset.z), biomeTester) == Piece.E)
+        return new PieceWithOffset(Piece.E, 16 * offset.x, (16 * offset.z) - (16 * (pieceSize.z / 2)));
+
+    pieceSize = sizeFinder.apply(Piece.W).InChunks();
+    for (Vec2i offset : getOverlayTestCheckPos(pieceSize.x, pieceSize.z))
+      if (getPieceAt(seed, new ChunkPos(pos.x + offset.x, pos.z + offset.z), biomeTester) == Piece.W)
+        return new PieceWithOffset(Piece.W, 16 * offset.x, (16 * offset.z) - (16 * (pieceSize.z / 2)));
+
+    Piece fallthrough = getPieceAt(seed, pos, biomeTester);
+    if (fallthrough != null) {
+      return new PieceWithOffset(fallthrough, 0, 0);
     }
     return null;
   }

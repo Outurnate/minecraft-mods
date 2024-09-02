@@ -11,13 +11,13 @@ import net.minecraftforge.registries.RegistryObject;
 @Mod(RailBridgesMod.MODID)
 public class RailBridgesMod
 {
-    public static final String MODID = "railbridges";
-    public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, MODID);
-    public static final RegistryObject<TrackBridgeFeature> TRACKBRIDGE_FEATURE = FEATURES.register("trackbridge", TrackBridgeFeature::new);
+  public static final String MODID = "railbridges";
+  public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, MODID);
+  public static final RegistryObject<TrackBridgeFeature> TRACKBRIDGE_FEATURE = FEATURES.register("trackbridge", TrackBridgeFeature::new);
 
-    public RailBridgesMod()
-    {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        FEATURES.register(modEventBus);
-    }
+  public RailBridgesMod()
+  {
+    IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+    FEATURES.register(modEventBus);
+  }
 }

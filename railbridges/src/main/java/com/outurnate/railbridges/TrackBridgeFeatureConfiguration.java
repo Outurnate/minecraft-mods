@@ -11,13 +11,15 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public record TrackBridgeFeatureConfiguration(int chunkSeparation, float damageChance, float infiniteChance, int yLevel, TagOrElementLocation allowedBiomes) implements FeatureConfiguration {
+public record TrackBridgeFeatureConfiguration(int chunkSeparation, float damageChance, float infiniteChance, int yLevelBase, int yLevelLower, int numEndVariants, TagOrElementLocation allowedBiomes) implements FeatureConfiguration {
   public static final Codec<TrackBridgeFeatureConfiguration> CODEC = RecordCodecBuilder.create((instance) -> {
     return instance.group(
       ExtraCodecs.POSITIVE_INT.fieldOf("chunkSeparation").forGetter(TrackBridgeFeatureConfiguration::chunkSeparation),
       ExtraCodecs.POSITIVE_FLOAT.fieldOf("damageChance").forGetter(TrackBridgeFeatureConfiguration::damageChance),
       ExtraCodecs.POSITIVE_FLOAT.fieldOf("infiniteChance").forGetter(TrackBridgeFeatureConfiguration::infiniteChance),
-      ExtraCodecs.POSITIVE_INT.fieldOf("yLevel").forGetter(TrackBridgeFeatureConfiguration::yLevel),
+      ExtraCodecs.POSITIVE_INT.fieldOf("yLevelBase").forGetter(TrackBridgeFeatureConfiguration::yLevelBase),
+      ExtraCodecs.POSITIVE_INT.fieldOf("yLevelLower").forGetter(TrackBridgeFeatureConfiguration::yLevelLower),
+      ExtraCodecs.POSITIVE_INT.fieldOf("numEndVariants").forGetter(TrackBridgeFeatureConfiguration::numEndVariants),
       ExtraCodecs.TAG_OR_ELEMENT_ID.fieldOf("allowedBiomes").forGetter(TrackBridgeFeatureConfiguration::allowedBiomes)
     ).apply(instance, TrackBridgeFeatureConfiguration::new);
   });

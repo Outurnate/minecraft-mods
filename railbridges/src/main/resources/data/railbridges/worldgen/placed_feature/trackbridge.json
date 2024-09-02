@@ -5,7 +5,9 @@
       "chunkSeparation": 16,
       "damageChance": 0.9,
       "infiniteChance": 0.5,
-      "yLevel": 63,
+      "yLevelBase": 63,
+      "yLevelLower": 40,
+      "numEndVariants": 4,
       "allowedBiomes": "#minecraft:is_ocean"
     }
   },
