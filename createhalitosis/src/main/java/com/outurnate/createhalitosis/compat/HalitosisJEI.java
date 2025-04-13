@@ -17,9 +17,7 @@ import com.simibubi.create.compat.jei.category.CreateRecipeCategory;
 import com.simibubi.create.compat.jei.category.ProcessingViaFanCategory;
 import com.simibubi.create.compat.jei.category.animations.AnimatedKinetics;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
-import com.simibubi.create.foundation.gui.element.GuiGameElement;
-import com.simibubi.create.foundation.utility.Components;
-
+import net.createmod.catnip.gui.element.GuiGameElement;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -33,6 +31,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.network.chat.Component;
 
 @JeiPlugin
 @SuppressWarnings("unused")
@@ -76,10 +75,10 @@ public class HalitosisJEI implements IModPlugin {
       IDrawable background = new EmptyBackground(178, 72);
       IDrawable icon = new DoubleItemIcon(() -> new ItemStack(AllItems.PROPELLER.get()), () -> new ItemStack(Items.DRAGON_HEAD));
       List<Supplier<? extends ItemStack>> catalysts = new ArrayList<>();
-      catalysts.add(() -> AllBlocks.ENCASED_FAN.asStack().setHoverName(Components.translatable(recipeBaseKey + ".fan").withStyle(style -> style.withItalic(false))));
+      catalysts.add(() -> AllBlocks.ENCASED_FAN.asStack().setHoverName(Component.translatable(recipeBaseKey + ".fan").withStyle(style -> style.withItalic(false))));
       
       var jeiRecipeType = new mezz.jei.api.recipe.RecipeType<HalitosisRecipe>(HalitosisRecipeTypes.HALITOSIS.getId(), HalitosisRecipe.class);
-      CreateRecipeCategory.Info<HalitosisRecipe> info = new CreateRecipeCategory.Info<HalitosisRecipe>(jeiRecipeType, Components.translatable(recipeBaseKey), background, icon, recipesSupplier, catalysts);
+      CreateRecipeCategory.Info<HalitosisRecipe> info = new CreateRecipeCategory.Info<HalitosisRecipe>(jeiRecipeType, Component.translatable(recipeBaseKey), background, icon, recipesSupplier, catalysts);
       
       this.category = new FanHalitosisCategory(info);
       registration.addRecipeCategories(category);

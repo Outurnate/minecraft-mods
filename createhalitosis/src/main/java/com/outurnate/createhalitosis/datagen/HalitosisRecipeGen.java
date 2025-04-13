@@ -9,7 +9,7 @@ import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeSerializer;
 import com.simibubi.create.foundation.data.recipe.CreateRecipeProvider;
-import com.simibubi.create.foundation.utility.RegisteredObjects;
+import net.createmod.catnip.platform.CatnipServices;
 
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -49,7 +49,7 @@ public class HalitosisRecipeGen extends CreateRecipeProvider {
     ProcessingRecipeSerializer<T> serializer = HalitosisRecipeTypes.HALITOSIS.getSerializer();
     GeneratedRecipe generatedRecipe = c -> {
       ItemLike itemLike = singleIngredient.get();
-      transform.apply(new ProcessingRecipeBuilder<>(serializer.getFactory(), new ResourceLocation(namespace, RegisteredObjects.getKeyOrThrow(itemLike.asItem()).getPath())).withItemIngredients(Ingredient.of(itemLike))).build(c);
+      transform.apply(new ProcessingRecipeBuilder<>(serializer.getFactory(), new ResourceLocation(namespace, CatnipServices.REGISTRIES.getKeyOrThrow(itemLike.asItem()).getPath())).withItemIngredients(Ingredient.of(itemLike))).build(c);
     };
     all.add(generatedRecipe);
     return generatedRecipe;

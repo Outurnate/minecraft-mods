@@ -5,16 +5,16 @@ import java.util.Optional;
 
 import org.jetbrains.annotations.Nullable;
 
-import com.jozufozu.flywheel.util.Color;
+import net.createmod.catnip.theme.Color;
 import com.outurnate.createhalitosis.CatalystUtils;
 import com.outurnate.createhalitosis.HalitosisMod;
 import com.simibubi.create.AllBlocks;
+import com.simibubi.create.api.registry.CreateBuiltInRegistries;
 import com.simibubi.create.content.kinetics.fan.processing.AllFanProcessingTypes;
 import com.simibubi.create.content.kinetics.fan.processing.FanProcessingType;
-import com.simibubi.create.content.kinetics.fan.processing.FanProcessingTypeRegistry;
 import com.simibubi.create.foundation.recipe.RecipeApplier;
-import com.simibubi.create.foundation.utility.VecHelper;
-
+import net.createmod.catnip.math.VecHelper;
+import net.minecraft.core.Registry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.DustParticleOptions;
@@ -33,8 +33,7 @@ public class HalitosisFanProcessingTypes extends AllFanProcessingTypes {
   public static final HalitosisType HALITOSIS = register("halitosis", new HalitosisType());
 
   private static <T extends FanProcessingType> T register(String id, T type) {
-    FanProcessingTypeRegistry.register(HalitosisMod.asResource(id), type);
-    return type;
+    return Registry.register(CreateBuiltInRegistries.FAN_PROCESSING_TYPE, HalitosisMod.asResource(id), type);
   }
 
   public static void register() {

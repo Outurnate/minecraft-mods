@@ -1,6 +1,6 @@
 package com.outurnate.createhalitosis;
 
-import com.jozufozu.flywheel.core.PartialModel;
+import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 import com.outurnate.createhalitosis.datagen.DataGen;
 import com.outurnate.createhalitosis.recipe.HalitosisFanProcessingTypes;
 import com.outurnate.createhalitosis.recipe.HalitosisRecipeTypes;
@@ -14,6 +14,7 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.RegisterEvent;
 
 @Mod(HalitosisMod.MODID)
 public class HalitosisMod
@@ -28,12 +29,17 @@ public class HalitosisMod
     IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
     HalitosisRecipeTypes.register(modEventBus);
-    HalitosisFanProcessingTypes.register();
 
     REGISTRATE.registerEventListeners(modEventBus);
     modEventBus.addListener(EventPriority.LOWEST, DataGen::gatherData);
+    modEventBus.addListener(HalitosisMod::onRegister);
 
-    DRAGON_MODEL = new PartialModel(new ResourceLocation(HalitosisMod.MODID, "dragon_head_export"));
+    DRAGON_MODEL = PartialModel.of(new ResourceLocation(HalitosisMod.MODID, "dragon_head_export"));
+  }
+
+  public static void onRegister(final RegisterEvent event)
+  {
+    HalitosisFanProcessingTypes.register();
   }
 
   public static ResourceLocation asResource(String id) {

@@ -9,7 +9,7 @@ import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder.Pro
 import com.outurnate.createhalitosis.HalitosisMod;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeSerializer;
 import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
-import com.simibubi.create.foundation.utility.Lang;
+import com.simibubi.create.foundation.utility.CreateLang;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
@@ -36,7 +36,7 @@ public enum HalitosisRecipeTypes implements IRecipeTypeInfo {
   private final Supplier<RecipeType<?>> type;
 
   HalitosisRecipeTypes(ProcessingRecipeFactory<?> processingFactory) {
-    String name = Lang.asId(name());
+    String name = CreateLang.asId(name());
     id = HalitosisMod.asResource(name);
     serializerObject = Registers.SERIALIZER_REGISTER.register(name, () -> new ProcessingRecipeSerializer<>(processingFactory));
     @Nullable RegistryObject<RecipeType<?>> typeObject = Registers.TYPE_REGISTER.register(name, () -> RecipeType.simple(id));
