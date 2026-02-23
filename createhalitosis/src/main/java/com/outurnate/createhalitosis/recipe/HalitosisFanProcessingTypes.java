@@ -77,7 +77,7 @@ public class HalitosisFanProcessingTypes extends AllFanProcessingTypes {
       RECIPE_WRAPPER.setItem(0, stack);
       Optional<Recipe<RecipeWrapper>> recipe = HalitosisRecipeTypes.HALITOSIS.find(RECIPE_WRAPPER, level);
       if (recipe.isPresent())
-        return RecipeApplier.applyRecipeOn(level, stack, recipe.get());
+        return RecipeApplier.applyRecipeOn(level, stack, recipe.get(), true);
       return null;
     }
 

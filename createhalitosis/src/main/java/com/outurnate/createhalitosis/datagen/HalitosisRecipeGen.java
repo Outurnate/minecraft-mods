@@ -5,10 +5,15 @@ import java.util.function.UnaryOperator;
 
 import com.outurnate.createhalitosis.HalitosisMod;
 import com.outurnate.createhalitosis.recipe.HalitosisRecipeTypes;
+import com.simibubi.create.AllRecipeTypes;
+import com.simibubi.create.api.data.recipe.ProcessingRecipeGen;
+import com.simibubi.create.api.data.recipe.BaseRecipeProvider.GeneratedRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeSerializer;
 import com.simibubi.create.foundation.data.recipe.CreateRecipeProvider;
+import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
+
 import net.createmod.catnip.platform.CatnipServices;
 
 import net.minecraft.data.PackOutput;
@@ -18,7 +23,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 
-public class HalitosisRecipeGen extends CreateRecipeProvider {
+public class HalitosisRecipeGen extends ProcessingRecipeGen {
   GeneratedRecipe END_STONE = convert(Items.COBBLESTONE, Items.END_STONE);
   GeneratedRecipe END_STONE_BRICKS = convert(Items.STONE_BRICKS, Items.END_STONE_BRICKS);
   GeneratedRecipe END_STONE_BRICK_STAIRS = convert(Items.STONE_BRICK_STAIRS, Items.END_STONE_BRICK_STAIRS);
@@ -30,14 +35,14 @@ public class HalitosisRecipeGen extends CreateRecipeProvider {
   GeneratedRecipe END_ROD = convert(Items.BLAZE_ROD, Items.END_ROD);
   
   public HalitosisRecipeGen(PackOutput output) {
-    super(output);
+    super(output, HalitosisMod.MODID);
   }
 
   public GeneratedRecipe convert(Item item, Item result) {
     return create(() -> item, b -> b.output(result));
   }
 
-  public GeneratedRecipe convert(Supplier<ItemLike> item, Supplier<ItemLike> result) {
+  /*public GeneratedRecipe convert(Supplier<ItemLike> item, Supplier<ItemLike> result) {
     return create(item, b -> b.output((ItemLike) result));
   }
 
@@ -53,5 +58,10 @@ public class HalitosisRecipeGen extends CreateRecipeProvider {
     };
     all.add(generatedRecipe);
     return generatedRecipe;
+  }*/
+
+  @Override
+  protected IRecipeTypeInfo getRecipeType() {
+    return HalitosisRecipeTypes.HALITOSIS;
   }
 }
